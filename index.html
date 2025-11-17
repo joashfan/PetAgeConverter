@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寵物歲數計算機</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="calculator-container">
+        <div class="header">
+            <i class="icon">🐶🐱</i>
+            <h1>寵物歲數計算機</h1>
+        </div>
+        
+        <div class="input-group">
+            <label for="petType">選擇寵物類型:</label>
+            <select id="petType">
+                <option value="dog">🐶 狗狗</option>
+                <option value="cat">🐱 貓咪</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="petName">輸入寵物名字:</label>
+            <input type="text" id="petName" value="妙麗" placeholder="例如：妙麗">
+        </div>
+
+        <div class="input-group">
+            <label for="birthdate">輸入寵物的出生日期:</label>
+            <input type="date" id="birthdate" value="2022-02-28">
+        </div>
+        
+        <button id="calculate-btn">開始計算</button>
+        
+        <div id="result-box" class="result-box">
+            <p>請輸入日期並點擊「開始計算」。</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
