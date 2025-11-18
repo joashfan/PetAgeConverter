@@ -18,7 +18,7 @@ body {
     background-attachment: fixed;
     transition: background-image 0.5s ease-in-out, background-color 0.5s; 
     background-color: #f7f7f7; /* 預設淺灰背景 */
-}
+
 
 .calculator-container {
     background-color: #ffffff; 
@@ -160,4 +160,8 @@ select:focus {
 
 .result-box p {
     margin: 5px 0;
+}
+
+
+
 }
