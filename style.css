@@ -1,3 +1,8 @@
+/* ================================================= */
+/* style.css (視覺美化與層次升級版) */
+/* ================================================= */
+
+/* 1. 全局設定與背景 (RWD/層次) */
 body {
     font-family: '微軟正黑體', 'Arial', sans-serif;
     display: flex;
@@ -5,44 +10,69 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 20px;
     
     /* 背景屬性：圖片由 JS 設置 */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    transition: background-image 0.5s ease-in-out; 
-    padding: 20px;
+    transition: background-image 0.5s ease-in-out, background-color 0.5s; 
+    background-color: #f7f7f7; /* 預設淺灰背景 */
 }
 
 .calculator-container {
-    background-color: rgba(255, 255, 255, 0.95); /* 半透明白色背景 */
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff; 
+    padding: clamp(20px, 5vw, 40px); /* 響應式內邊距 */
+    border-radius: 25px; /* 更圓潤的邊角 */
+    
+    /* 提升層次感的陰影效果 (參考圖二版型邊框) */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
+    
     text-align: center;
-    max-width: 400px;
+    max-width: 450px; /* 稍微放大容器 */
     width: 100%;
+    position: relative;
+    z-index: 10;
 }
 
+/* 2. LOGO 圖片樣式 (配合 HTML 調整) */
+.main-logo-container {
+    margin-bottom: 20px;
+    margin-top: -60px; /* 讓 LOGO 突出於卡片上方 */
+    text-align: center;
+}
+
+.main-logo {
+    width: clamp(100px, 40vw, 150px); /* 響應式寬度 */
+    height: auto;
+    border-radius: 50%;
+    border: 8px solid #ffffff; /* 白色邊框讓 LOGO 視覺突出 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin: 0 auto;
+}
+
+/* 3. 標題區塊 */
 .header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 25px;
-    color: #4A4A4A;
+    margin-bottom: 30px;
+    color: #333;
 }
-
 .header .icon {
-    font-size: 36px;
-    margin-right: 10px;
+    display: none; /* 隱藏舊的 icon，主要使用新的 LOGO */
 }
 
 h1 {
-    font-size: 28px;
+    font-size: clamp(24px, 6vw, 30px);
     margin: 0;
-    font-weight: bold;
+    font-weight: 700;
+    color: #4A4A4A;
+    letter-spacing: 1px;
 }
 
+/* 4. 表單元素優化 (更好的體驗) */
 .input-group {
     margin-bottom: 20px;
     text-align: left;
@@ -52,57 +82,80 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #333;
+    color: #555;
+    font-size: 15px;
 }
 
-/* 確保所有輸入元素（日期、文字、選單）寬度為 100% */
 input[type="date"],
 input[type="text"],
 select { 
     width: 100%;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
+    padding: 12px 15px; /* 增加內邊距提升點擊區域 */
+    border: 1px solid #ddd;
+    border-radius: 10px; /* 更大的圓角 */
     box-sizing: border-box; 
     font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9f9f9;
 }
 
+input[type="date"]:focus,
+input[type="text"]:focus,
+select:focus {
+    border-color: #FFA000; /* 聚焦時的強調色 */
+    box-shadow: 0 0 0 3px rgba(255, 160, 0, 0.3);
+    outline: none;
+    background-color: #fff;
+}
+
+/* 5. 按鈕互動感優化 */
 #calculate-btn {
-    background-color: #FFC107; /* 黃色按鈕 */
+    /* 漸層與陰影 */
+    background-image: linear-gradient(to right, #FFC107 0%, #FFA000 100%);
     color: #333;
     border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
+    padding: 14px 25px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.1s;
+    transition: all 0.3s ease;
     width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+    letter-spacing: 1px;
+    margin-top: 10px;
 }
 
 #calculate-btn:hover {
-    background-color: #FFA000;
+    background-image: linear-gradient(to right, #FFA000 0%, #FFC107 100%);
+    box-shadow: 0 8px 20px rgba(255, 160, 0, 0.5);
+    transform: translateY(-2px);
 }
 
 #calculate-btn:active {
     transform: scale(0.98);
+    box-shadow: 0 4px 10px rgba(255, 160, 0, 0.4);
 }
 
+/* 6. 結果區塊明顯化 */
 .result-box {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #E0F7FA; /* 淺藍色結果框 */
+    margin-top: 35px;
+    padding: 25px;
+    background-color: #E0F7FA; /* 淺藍色基底 */
     border: 1px solid #B2EBF2;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: left;
     min-height: 80px;
     color: #004D40;
-    line-height: 1.6;
+    line-height: 1.8;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* 內陰影增加層次 */
+    font-size: 16px;
 }
 
 .result-box strong {
     color: #D32F2F; /* 紅色強調 */
+    font-weight: 700;
+    font-size: 1.1em;
 }
 
 .result-box p {

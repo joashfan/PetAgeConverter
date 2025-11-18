@@ -5,21 +5,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const calculateBtn = document.getElementById('calculate-btn');
     const resultBox = document.getElementById('result-box');
     
+    // 新增：獲取 body 元素
     const body = document.body;
     
-    // 背景圖片 URL
-    const DOG_BG_URL = '/image/dog.png';
-    const CAT_BG_URL = '/image/cat.jpeg'; 
+    // 定義背景圖片 URL
+    const DOG_BG_URL = '/images/dog.png';
+    const CAT_BG_URL = '/images/cat.jpeg'; 
 
-    const TODAY = new Date();
+const TODAY = new Date();
     
+    // =========================================================
+    // 【新增功能 1】: 數據儲存 (localStorage)
+    // 當輸入變更時，自動儲存數據
+    // =========================================================
+    function saveData() {
+        try {
+            localStorage.setItem('petName', petNameInput.value.trim());
+            localStorage.setItem('petBirthdate', birthdateInput.value);
+            localStorage.setItem('petType', petTypeInput.value);
+        } catch (e) {
+            console.error("無法使用 localStorage 儲存數據:", e);
+        }
+    }
+
+    // =========================================================
+    // 【新增功能 2】: 數據加載與自動計算 (localStorage)
+    // 頁面載入時執行
+    // =========================================================
+    function loadDataAndCalculate() {
+        try {
+            const savedName = localStorage.getItem('petName');
+            const savedBirthdate = localStorage.getItem('petBirthdate');
+            const savedType = localStorage.getItem('petType');
+
+            // 1. 加載數據
+            if (savedName !== null) petNameInput.value = savedName;
+            if (savedBirthdate !== null) birthdateInput.value = savedBirthdate;
+            if (savedType !== null) petTypeInput.value = savedType;
+
+            // 2. 設定背景 (根據加載的類型)
+            updateBackground(petTypeInput.value); 
+
+            // 3. 自動計算 (如果有儲存過有效數據)
+            if (savedName && savedBirthdate) {
+                // 使用 setTimeout 確保 DOM 渲染完成後再計算，避免影響載入速度
+                setTimeout(calculatePetAge, 50); 
+            } else {
+                // 如果沒有儲存數據，確保初始背景正確
+                updateBackground(petTypeInput.value); 
+            }
+        } catch (e) {
+            console.error("無法從 localStorage 加載數據:", e);
+            updateBackground(petTypeInput.value); 
+        }
+    }
+    
+    // --- 事件監聽器 (包含儲存功能) ---
+    petTypeInput.addEventListener('change', (event) => {
+        updateBackground(event.target.value);
+        saveData(); 
+        calculatePetAge(); // 類型變更後也重新計算
+    });
+
+    petNameInput.addEventListener('input', saveData); 
+    birthdateInput.addEventListener('change', () => {
+        saveData();
+        calculatePetAge(); // 日期變更後也重新計算
+    }); 
     calculateBtn.addEventListener('click', calculatePetAge);
 
-    // --- 背景切換邏輯 ---
-    
-    /**
-     * 根據寵物類型切換背景圖片
-     */
+    // 頁面載入時執行數據加載與自動計算
+    loadDataAndCalculate(); 
+
+    // --- 背景切換邏輯 (保持不變) ---
     function updateBackground(petType) {
         if (petType === 'dog') {
             body.style.backgroundImage = `url('${DOG_BG_URL}')`;
@@ -27,44 +85,27 @@ document.addEventListener('DOMContentLoaded', () => {
             body.style.backgroundImage = `url('${CAT_BG_URL}')`;
         }
     }
-    
-    // 1. 頁面載入時，設定初始背景
-    updateBackground(petTypeInput.value); 
 
-    // 2. 監聽寵物類型選擇的變化事件
-    petTypeInput.addEventListener('change', (event) => {
-        updateBackground(event.target.value);
-    });
-
-    // --- 年齡計算核心邏輯 ---
-
-    /**
-     * 核心計算函數：將寵物齡換算為人類年齡 (15-9-4 規則)
-     */
+    // --- 年齡計算核心邏輯 (保持不變) ---
     function calculateHumanAge(ageInYears) {
         let humanAge = 0;
         
         if (ageInYears >= 2) {
-            // 2歲及以上: 前兩年 24 歲 + 之後每年 4 歲
             humanAge = 24;
             const remainingPetYears = ageInYears - 2;
             humanAge += remainingPetYears * 4;
         } else if (ageInYears >= 1) {
-            // 1歲到 2歲之間: 1歲 15 歲 + 剩餘年數 * 9 歲
             humanAge = 15;
             const remainingPetYears = ageInYears - 1;
             humanAge += remainingPetYears * 9; 
         } else {
-            // 1歲以內: 實際寵物齡 * 15 歲
             humanAge = ageInYears * 15;
         }
         
         return humanAge;
     }
 
-    /**
-     * 計算並顯示寵物的年齡
-     */
+    // --- 計算並顯示寵物的年齡 (保持不變) ---
     function calculatePetAge() {
         const petName = petNameInput.value.trim() || '您的寵物';
         const petType = petTypeInput.value; 
