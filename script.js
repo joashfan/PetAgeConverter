@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     
     // 定義背景圖片 URL
-    const DOG_BG_URL = 'images/dog.png';
-    const CAT_BG_URL = 'images/cat.jpeg'; 
+    const DOG_BG_URL = '../images/dog.png';
+    const CAT_BG_URL = '../images/cat.jpeg'; 
 
 const TODAY = new Date();
     
