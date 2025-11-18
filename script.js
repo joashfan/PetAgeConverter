@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     
     // 背景圖片 URL
-    const DOG_BG_URL = 'https://hackmd.io/_uploads/Hyc4usZlWe.png';
-    const CAT_BG_URL = 'https://i.ibb.co/ymTgT74C/pexels-photo-923360-1.jpg'; 
+    const DOG_BG_URL = '/image/dog.png';
+    const CAT_BG_URL = '/image/cat.jpeg'; 
 
     const TODAY = new Date();
     
