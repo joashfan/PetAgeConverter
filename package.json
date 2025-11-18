@@ -1,0 +1,23 @@
+{
+  "name": "petageconverter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joashfan/PetAgeConverter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joashfan/PetAgeConverter/issues"
+  },
+  "homepage": "https://github.com/joashfan/PetAgeConverter#readme",
+  "devDependencies": {
+    "vite": "^7.2.2"
+  }
+}
