@@ -2,7 +2,6 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // 根據環境變數，判斷是否為生產環境部署
-  // 如果是 GitHub Pages 部署，則設置基底路徑
-  base: process.env.NODE_ENV === 'production' ? '/PetAgeConverter/' : '/',
+  // **關鍵配置：設定基底路徑，必須與你的 GitHub 儲存庫名稱一致**
+  base: '/PetAgeConverter/', 
 });
